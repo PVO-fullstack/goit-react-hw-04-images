@@ -16,35 +16,40 @@ export const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [activeImgIdx, setActiveImgIdx] = useState(null);
 
-  useEffect(() => {
-    if (!value) {
-      return;
-    }
-    setIsLoading(true);
-    getPhoto();
-    setPage(prevState => prevState + 1);
-  }, [value]);
-
   const handleGetPhotos = data => {
     setValue(data);
     setPhotos([]);
     setPage(1);
   };
 
-  const getPhoto = async () => {
-    const searchName = value;
-    const photo = await API.getPictures(searchName, page);
-    if (photo.hits.length < 1) {
-      Notify.warning('Nothing found, try another name');
+  useEffect(() => {
+    if (!value) {
+      return;
     }
-    setPhotos(prevState => [...prevState, ...photo.hits]);
-    setIsLoading(false);
-  };
+    const getPhoto = async () => {
+      setIsLoading(true);
+      try {
+        await API.getPictures({ query: value, currentPage: page }).then(
+          searchQuery => {
+            if (searchQuery.hits.length < 1) {
+              Notify.warning('Nothing found, try another name');
+              setIsLoading(false);
+              return;
+            }
+            setPhotos(prevState => [...prevState, ...searchQuery.hits]);
+            setIsLoading(false);
+          }
+        );
+      } catch (error) {
+        console.log(error.data);
+      }
+    };
+    getPhoto();
+  }, [page, value]);
 
   const handleGetMorePhotos = () => {
     setIsLoading(true);
     setPage(prevState => prevState + 1);
-    getPhoto();
   };
 
   const openModal = index => {

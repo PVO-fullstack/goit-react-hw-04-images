@@ -6,17 +6,7 @@ export const ImageGallery = ({ photos, openModal }) => {
   return (
     <ul className={css.imagegallery}>
       {photos.map((photo, index) => (
-        <li className={css.imagegalleryitem} key={photo.id}>
-          <a
-            onClick={e => {
-              e.preventDefault();
-              openModal(index);
-            }}
-            href={photo.largeImageURL}
-          >
-            <ImageGalleryItem photo={photo} />
-          </a>
-        </li>
+        <ImageGalleryItem photo={photo} index={index} openModal={openModal} />
       ))}
     </ul>
   );
