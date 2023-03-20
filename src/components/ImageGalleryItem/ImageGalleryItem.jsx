@@ -3,7 +3,7 @@ import css from './ImageGalleryItem.module.css';
 
 export const ImageGalleryItem = ({ photo, openModal, index }) => {
   return (
-    <li className={css.imagegalleryitem} key={photo.id}>
+    <li className={css.imagegalleryitem}>
       <a
         onClick={e => {
           e.preventDefault();
@@ -12,7 +12,6 @@ export const ImageGalleryItem = ({ photo, openModal, index }) => {
         href={photo.largeImageURL}
       >
         <img
-          onClick={console.log('click')}
           className={css.imagegalleryitem_image}
           src={photo.webformatURL}
           alt={photo.tags}

@@ -13,15 +13,13 @@ export const Modal = ({ onClose, src }) => {
 
   useEffect(() => {
     window.addEventListener('keyup', handleKeydown);
-    console.log('in');
-  }, []);
+  });
 
   useEffect(() => {
     return () => {
-      console.log('out');
       window.removeEventListener('keyup', handleKeydown);
     };
-  }, []);
+  });
 
   const handleOverlayClick = e => {
     if (e.currentTarget === e.target) {

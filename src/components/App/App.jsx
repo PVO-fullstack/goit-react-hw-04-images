@@ -47,19 +47,14 @@ export const App = () => {
     getPhoto();
   }, [page, value]);
 
-  const handleGetMorePhotos = () => {
-    setIsLoading(true);
-    setPage(prevState => prevState + 1);
-  };
+  const handleGetMorePhotos = () => setPage(prevState => prevState + 1);
 
   const openModal = index => {
     setShowModal(true);
     setActiveImgIdx(index);
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const closeModal = () => setShowModal(false);
 
   return (
     <div className={css.app}>
