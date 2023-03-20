@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import css from './Searchbar.module.css';
 
@@ -37,4 +38,8 @@ export const Searchbar = ({ submit }) => {
       </form>
     </header>
   );
+};
+
+Searchbar.propTypes = {
+  submit: PropTypes.func.isRequired,
 };

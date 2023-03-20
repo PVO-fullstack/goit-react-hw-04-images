@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import css from './ImageGalleryItem.module.css';
 
 export const ImageGalleryItem = ({ photo, openModal, index }) => {
@@ -19,4 +20,10 @@ export const ImageGalleryItem = ({ photo, openModal, index }) => {
       </a>
     </li>
   );
+};
+
+ImageGalleryItem.propTypes = {
+  photo: PropTypes.object.isRequired,
+  openModal: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
 };
