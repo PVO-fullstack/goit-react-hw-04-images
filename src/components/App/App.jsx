@@ -36,7 +36,19 @@ export const App = () => {
               setIsLoading(false);
               return;
             }
-            setPhotos(prevState => [...prevState, ...searchQuery.hits]);
+            const allPropertiasPhotos = searchQuery.hits;
+            const filtredPropertiasPhotos = allPropertiasPhotos.map(
+              ({ id, largeImageURL, webformatURL, tags }) => {
+                const photo = {
+                  id,
+                  largeImageURL,
+                  webformatURL,
+                  tags,
+                };
+                return photo;
+              }
+            );
+            setPhotos(prevState => [...prevState, ...filtredPropertiasPhotos]);
             setIsLoading(false);
           }
         );
@@ -55,13 +67,14 @@ export const App = () => {
   };
 
   const closeModal = () => setShowModal(false);
+  const hideGetMoreButton = photos.length / (page * 12) < 1;
 
   return (
     <div className={css.app}>
       <Searchbar submit={handleGetPhotos} />
       <ImageGallery photos={photos} openModal={openModal} />
       {isLoading && <Loader />}
-      {photos.length !== 0 && <Button getMore={handleGetMorePhotos} />}
+      {!hideGetMoreButton && <Button getMore={handleGetMorePhotos} />}
       {showModal && (
         <Modal src={photos[activeImgIdx].largeImageURL} onClose={closeModal} />
       )}
